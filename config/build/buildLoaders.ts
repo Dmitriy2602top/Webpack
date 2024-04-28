@@ -8,13 +8,15 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
   const cssModulesOptions = {
     loader: "css-loader",
 
-    options: isDev && {
-      sourceMap: true,
-      importLoaders: 1,
-      modules: {
-        localIdentName: "[local]__[hash:base64:8]",
-      },
-    },
+    options: isDev
+      ? {
+          sourceMap: true,
+          importLoaders: 1,
+          modules: {
+            localIdentName: "[local]__[hash:base64:8]",
+          },
+        }
+      : {},
   };
 
   const scssLoader = {

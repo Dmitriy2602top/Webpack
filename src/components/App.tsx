@@ -1,6 +1,8 @@
 import { useState } from "react";
-// import { Button } from "../shared/Button";
+
 import styles from './global.module.scss'
+import { Button } from "~/shared/Button";
+import { Link, Outlet } from "react-router-dom";
 
 const App = () => {
 
@@ -11,9 +13,15 @@ const App = () => {
                 className={styles.button}
                 onClick={() => setCounter(counter + 1)}
             >
+
                 <span className="uppercase">Click</span>
             </button>
             hello world!!! {counter}
+            <div className={styles.links}>
+                <Link to={'/one'}>Page 1</Link>
+                <Link to={'/two'}>Page 2</Link>
+            </div>
+            <Outlet />
         </div>
     );
 };

@@ -8,6 +8,7 @@ type Mode = "production" | "development";
 interface EnvVariable {
   mode: Mode;
   port: number;
+  analyzer: boolean;
 }
 
 export default (env: EnvVariable) => {
@@ -15,12 +16,14 @@ export default (env: EnvVariable) => {
     entry: path.resolve(__dirname, "src", "index.tsx"),
     output: path.resolve(__dirname, "build"),
     html: path.resolve(__dirname, "public", "index.html"),
+    src: path.resolve(__dirname, "src"),
   };
 
   const config: webpack.Configuration = buildWebpack({
     mode: env.mode ?? "development",
     port: env.port ?? 3333,
     path: paths,
+    analyzer: env.analyzer ?? false,
   });
   return config;
 };
