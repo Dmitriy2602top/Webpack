@@ -1,48 +1,36 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
+
 import webpack from "webpack"
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import { buildPlugins } from "./buildPlugins";
+import { buildLoaders } from "./buildLoaders";
+import { buildDevServer } from "./buildDevServer";
+import { buildResolver } from "./buildResolver";
+import { BuildOptions } from "./types/types";
 
 
-export function buildWebpack(options): webpack.Configuration {
+export function buildWebpack(options: BuildOptions): webpack.Configuration {
+    const isDev = options.mode === 'development'
+    const { path } = options
     return {
-        mode: env.mode ?? "development",
-        entry: path.resolve(__dirname, "src", "index.tsx"),
+        mode: options.mode ?? "development",
 
-        module: {
-            rules: [
-                {
-                    test: /\.s[ac]ss$/i,
-                    use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-                },
-                {
-                    test: /\.tsx?$/,
-                    use: "ts-loader",
-                    exclude: /node_modules/,
-                },
+        entry: options.path.entry,
 
-            ],
-        },
-        resolve: {
-            extensions: [".tsx", ".ts", ".js"],
-        },
+        module: { rules: buildLoaders(options) },
+
+        resolve: buildResolver(options),
+
         devtool: isDev ? 'inline-source-map' : false,
+
         output: {
-            path: path.resolve(__dirname, "build"),
+            path: path.output,
             filename: "[name].[contenthash].js",
             clean: true,
         },
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: path.resolve(__dirname, "public", "index.html"),
-            }),
-            !isDev && new MiniCssExtractPlugin({ filename: 'css/[name].[contenthash:8].css', chunkFilename: 'css/[name].[contenthash:8].css' }),
-            new webpack.ProgressPlugin(),
-        ],
-        devServer: isDev ? {
-            open: true,
-            port: env.port ?? 4000,
-        } : undefined,
+
+        plugins: buildPlugins(options),
+        devServer: isDev ? buildDevServer(options) : undefined,
     };
 }

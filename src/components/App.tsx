@@ -1,14 +1,21 @@
 import { useState } from "react";
-import './App.scss';
+// import { Button } from "../shared/Button";
+import styles from './global.module.scss'
 
 const App = () => {
-    const [counter, setCounter] = useState<number>(0)
+
+    const [counter, setCounter] = useState<number>(0);
     return (
         <div>
-            <button className="button-counter" onClick={() => setCounter(counter + 1)}> <span className="uppercase">Click</span> </button>
+            <button
+                className={styles.button}
+                onClick={() => setCounter(counter + 1)}
+            >
+                <span className="uppercase">Click</span>
+            </button>
             hello world!!! {counter}
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;
