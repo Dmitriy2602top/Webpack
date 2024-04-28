@@ -1,19 +1,26 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import path from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import webpack from 'webpack';
-import { buildWebpack } from './config/build/buildWebpack';
+import path from "path";
+import webpack from "webpack";
+import { buildWebpack } from "./config/build/buildWebpack";
+import { BuildPath } from "./config/build/types/types";
 
-type Mode = "production" | "development"
+type Mode = "production" | "development";
 
 interface EnvVariable {
-  mode: Mode, port: number
+  mode: Mode;
+  port: number;
 }
 
 export default (env: EnvVariable) => {
-  const isDev = env.mode === 'development'
-  const config: webpack.Configuration = buildWebpack()
+  const paths: BuildPath = {
+    entry: path.resolve(__dirname, "src", "index.tsx"),
+    output: path.resolve(__dirname, "build"),
+    html: path.resolve(__dirname, "public", "index.html"),
+  };
+
+  const config: webpack.Configuration = buildWebpack({
+    mode: env.mode ?? "development",
+    port: env.port ?? 3333,
+    path: paths,
+  });
   return config;
-}
-
-
+};
