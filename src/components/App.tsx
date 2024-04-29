@@ -20,6 +20,7 @@ const App = () => {
             <div className={styles.links}>
                 <Link to={'/one'}>Page 1</Link>
                 <Link to={'/two'}>Page 2</Link>
+                <Link to={'/'}>Main</Link>
             </div>
             <Outlet />
         </div>
