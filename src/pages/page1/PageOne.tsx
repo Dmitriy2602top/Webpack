@@ -1,11 +1,18 @@
+import { Link, Outlet } from 'react-router-dom';
+import { ButtonPrimary } from '~/shared/ui';
 
-import Image from '/public/assets/image/avatar.jpg'
 const PageOne = () => {
+
     return (
         <div>
-            page 1 <img src={Image} alt='Ulbi' />
+            <div>
+                <Link to={'/two'}>Page 2</Link>
+                <Link to={'/'}>Main page</Link>
+            </div>
+            <ButtonPrimary>Custom Button</ButtonPrimary>
+            <Outlet />
         </div>
-    )
+    );
 }
 
 export default PageOne

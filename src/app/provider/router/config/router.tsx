@@ -1,15 +1,14 @@
 import { Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import App from "~/components/App";
 import { PageOne, PageTwo } from "~/pages";
 import { Loader } from "~/shared/ui";
+import App from "../../../App";
 
 
 export const router = createBrowserRouter([
     {
-        path: '/', element: <App />,
+        path: '/', element: <PageOne />,
         children: [
-            { path: "one", element: <Suspense fallback={<Loader />}><PageOne /></Suspense> },
             { path: 'two', element: <Suspense fallback={<Loader />}> <PageTwo /></Suspense> }
         ]
     }
