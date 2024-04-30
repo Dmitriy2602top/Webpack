@@ -9,6 +9,7 @@ interface EnvVariable {
   mode: Mode;
   port: number;
   analyzer: boolean;
+  platform: "desktop" | "mobile";
 }
 
 export default (env: EnvVariable) => {
@@ -24,6 +25,7 @@ export default (env: EnvVariable) => {
     port: env.port ?? 3333,
     path: paths,
     analyzer: env.analyzer ?? false,
+    platform: env.platform ?? "desktop",
   });
   return config;
 };

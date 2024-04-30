@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Image from '/public/assets/image/avatar.jpg'
 const PageOne = () => {
     return (

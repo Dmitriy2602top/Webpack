@@ -8,7 +8,7 @@ const PageTwo = () => {
             page2
             <Calendar fill='blue' width={50} height={50} />
             <Ulbi fill='green ' width={50} height={50} />
-            <div>lkdsjflkdjlks  </div>
+            <div>{__PLATFORM__ === 'desktop' ? <span>IsDesktop</span> : <span>IsMobile</span>}</div>
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import path from "path";
-import webpack, { Configuration } from "webpack";
+import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import webpack, { Configuration, DefinePlugin } from "webpack";
 import { BuildOptions } from "./types/types";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
 
 export const buildPlugins = (
   options: BuildOptions
@@ -13,9 +14,17 @@ export const buildPlugins = (
 
   const plugins: Configuration["plugins"] = [
     new HtmlWebpackPlugin({ template: path.html }),
+    new DefinePlugin({
+      __PLATFORM__: JSON.stringify(options.platform),
+    }),
   ];
 
-  if (isDev) plugins.push(new webpack.ProgressPlugin());
+  if (isDev)
+    plugins.push(
+      new webpack.ProgressPlugin(),
+      new ForkTsCheckerWebpackPlugin(),
+      new ReactRefreshWebpackPlugin()
+    );
 
   if (!isDev)
     plugins.push(

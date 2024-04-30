@@ -10,4 +10,5 @@ export interface BuildOptions {
   path: BuildPath;
   mode: BuildMode;
   analyzer: boolean;
+  platform: "desktop" | "mobile";
 }
