@@ -4,6 +4,7 @@ export interface BuildPath {
   output: string;
   html: string;
   src: string;
+  favicon: string;
 }
 export interface BuildOptions {
   port: number;

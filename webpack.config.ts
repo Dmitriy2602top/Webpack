@@ -18,6 +18,13 @@ export default (env: EnvVariable) => {
     output: path.resolve(__dirname, "build"),
     html: path.resolve(__dirname, "public", "index.html"),
     src: path.resolve(__dirname, "src"),
+    favicon: path.resolve(
+      __dirname,
+      "public",
+      "assets",
+      "favicon",
+      "avatar.png"
+    ),
   };
 
   const config: webpack.Configuration = buildWebpack({

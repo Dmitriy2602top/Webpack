@@ -13,7 +13,7 @@ export const buildPlugins = (
   const { path } = options;
 
   const plugins: Configuration["plugins"] = [
-    new HtmlWebpackPlugin({ template: path.html }),
+    new HtmlWebpackPlugin({ template: path.html, favicon: path.favicon }),
     new DefinePlugin({
       __PLATFORM__: JSON.stringify(options.platform),
     }),
